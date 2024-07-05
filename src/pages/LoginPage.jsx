@@ -1,7 +1,10 @@
 import { Formik, Form } from "formik"
 import InputForm from "../components/InputForm"
+import useUser from "../hooks/useUser"
 
 const LoginPage = () => {
+  const { loginUser } = useUser();
+
   return (
     <div className='max-w-lg mx-auto bg-white p-14 rounded-lg border-2 border-gray-200'>
       <h2 className='text-center font-bold text-gray-900 text-3xl mb-10'>
@@ -25,7 +28,7 @@ const LoginPage = () => {
           return errors;
         }}
         onSubmit={(values) => {
-          console.log(values)
+          loginUser(values);
         }}
       >
         {({ values, errors, touched, handleChange, handleSubmit, isSubmitting }) => (

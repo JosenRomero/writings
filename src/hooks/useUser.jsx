@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom"
-import { register } from "../services/user"
+import { register, login } from "../services/user"
 
 const useUser = () => {
   const navigate = useNavigate();
@@ -9,8 +9,14 @@ const useUser = () => {
     if (result?.message === "success") navigate('/');
   }
 
+  const loginUser = async (data) => {
+    const result = await login(data);
+    if (result?.message === "success") navigate('/');
+  }
+
   return {
-    registerUser
+    registerUser,
+    loginUser
   }
 }
 
