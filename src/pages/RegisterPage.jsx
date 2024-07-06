@@ -25,7 +25,13 @@ const RegisterPage = () => {
             errors.email = 'Invalid email address';
           }
 
-          if (!values.password) errors.password = 'Password is required';
+          if (!values.password)  {
+            errors.password = 'Password is required';
+          } else if (values.password.length < 5) {
+            errors.password = 'Password must be longer than or equal to 5 characters';
+          } else if (values.password.length > 12) {
+            errors.password = 'password must be shorter than or equal to 12 characters';
+          }
 
           return errors;
         }}
