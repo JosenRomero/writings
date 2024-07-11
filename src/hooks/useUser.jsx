@@ -1,14 +1,18 @@
+import { useContext } from "react"
 import { useNavigate } from "react-router-dom"
+import { UserContext } from "../context/UserContext"
 import { register, login } from "../services/user"
 import useMessage from "./useMessage"
 
 const useUser = () => {
+  const { updateUser } = useContext(UserContext);
   const navigate = useNavigate();
   const { showMessage } = useMessage();
 
   const registerUser = async(data) => {
-    const { message, error} = await register(data);
-    if (message === "success") {
+    const { user, message, error} = await register(data);
+    if (user) {
+      updateUser(user);
       navigate('/');
       showMessage("Registered new user");
     }
@@ -16,8 +20,11 @@ const useUser = () => {
   }
 
   const loginUser = async (data) => {
-    const { message, error } = await login(data);
-    if (message === "success") navigate('/');
+    const { user, message, error } = await login(data);
+    if (user) {
+      updateUser(user);
+      navigate('/');
+    }
     if (error) showMessage(message, "error");
   }
 
