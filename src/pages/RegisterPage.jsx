@@ -1,4 +1,5 @@
 import { Formik, Form } from "formik"
+import { Link } from "react-router-dom"
 import InputForm from "../components/InputForm"
 import useUser from "../hooks/useUser"
 
@@ -72,11 +73,14 @@ const RegisterPage = () => {
               disabled={isSubmitting}
               className='text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center'
             >
-              Register new account
+              Register
             </button>
           </Form>
         )}
       </Formik>
+      <p className="mt-7 flex gap-x-2 justify-between text-gray-900">
+        Already have an account? <Link className="text-sky-500" to={"/login"}>Login</Link>
+      </p>
     </div>
   )
 }

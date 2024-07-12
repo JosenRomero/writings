@@ -1,4 +1,5 @@
 import { Formik, Form } from "formik"
+import { Link } from "react-router-dom"
 import InputForm from "../components/InputForm"
 import useUser from "../hooks/useUser"
 
@@ -61,6 +62,9 @@ const LoginPage = () => {
           </Form>
         )}
       </Formik>
+      <p className="mt-7 flex gap-x-2 justify-between text-gray-900">
+        Don&apos;t have an account? <Link className="text-sky-500" to={"/register"}>Register</Link>
+      </p>
     </div>
   )
 }
