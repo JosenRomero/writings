@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react"
-import { getAllArticles } from "../services/articles"
+import { getAllArticles, createArticle } from "../services/articles"
+import useMessage from "./useMessage"
 
 const useArticles = () => {
   const [articles, setArticles] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
+  const { showMessage } = useMessage();
 
   useEffect(() => {
 
@@ -29,10 +31,30 @@ const useArticles = () => {
 
   }, [])
 
+  const createOneArticle = async (data) => {
+
+    try {
+
+      const result = await createArticle(data);
+
+      if(result?.message) {
+        showMessage(result.message, "error");
+      } else {
+        showMessage("added a new article");
+        setArticles([...articles, result]);
+      }
+
+    } catch (error) {
+      showMessage("Something went wrong", "error");
+    }
+
+  }
+
   return {
     loading,
     error,
-    articles
+    articles,
+    createOneArticle
   }
 }
 

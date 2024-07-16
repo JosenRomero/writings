@@ -1,10 +1,15 @@
 import useArticles from "../hooks/useArticles"
 import Articles from "../components/Articles"
+import ArticleForm from "../components/ArticleForm"
 
 const ArticlesPage = () => {
-  const { loading, error, articles } = useArticles()
+  const { loading, error, articles, createOneArticle } = useArticles()
 
   if (loading) return <div>Loading...</div>
+
+  const handleArticle = (data) => {
+    createOneArticle(data)
+  }
 
   return (
     <div className='text-zinc-800'>
@@ -19,6 +24,8 @@ const ArticlesPage = () => {
       )}
 
       <h1 className="text-center font-bold text-2xl">Articles</h1>
+
+      <ArticleForm handleArticle={handleArticle} />
 
       <Articles articles={articles} />
       

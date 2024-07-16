@@ -17,9 +17,10 @@ const ArticleForm = ({ handleArticle, description = "", tags = "" }) => {
 
           return errors
         }}
-        onSubmit={(values) => {
+        onSubmit={(values, { resetForm }) => {
           values.tags = values.tags.split(/\s*[,]\s*/)
           handleArticle(values)
+          resetForm() // clear inputs
         }}
       >
         {({ values, errors, touched, handleChange, handleSubmit }) => (
