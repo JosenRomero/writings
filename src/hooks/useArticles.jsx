@@ -16,8 +16,13 @@ const useArticles = () => {
 
         const result = await getAllArticles();
 
-        if(result?.message) setError(true);
-        else setArticles(result);
+        if(result?.message) {
+          setError(true);
+        }
+        else {
+          result.reverse();
+          setArticles(result);
+        }
         
       } catch (error) {
         setError(true);
@@ -41,7 +46,7 @@ const useArticles = () => {
         showMessage(result.message, "error");
       } else {
         showMessage("added a new article");
-        setArticles([...articles, result]);
+        setArticles([result, ...articles]);
       }
 
     } catch (error) {

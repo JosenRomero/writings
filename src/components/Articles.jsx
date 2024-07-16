@@ -8,7 +8,7 @@ const Articles = ({ articles }) => {
     <div className="mt-9">
       {articles.map((article, i) => {
         return <Link to={article._id} key={i}>
-          <div className="bg-zinc-100 text-zinc-800 hover:bg-zinc-200 mb-5 p-6">
+          <div className="bg-gray-100 text-zinc-800 hover:bg-gray-200 mb-5 p-6">
             <p>{article.description}</p>
           </div>
         </Link>
