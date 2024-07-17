@@ -1,9 +1,16 @@
+import { useEffect } from "react"
 import useArticles from "../hooks/useArticles"
 import Articles from "../components/Articles"
 import ArticleForm from "../components/ArticleForm"
 
 const ArticlesPage = () => {
-  const { loading, error, articles, createOneArticle } = useArticles()
+  const { loading, error, articles, getAllArticles, createOneArticle } = useArticles()
+
+  useEffect(() => {
+
+    getAllArticles() // Memoized with useCallback
+    
+  }, [getAllArticles])
 
   if (loading) return <div>Loading...</div>
 

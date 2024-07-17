@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react"
-import { getAllArticles, createArticle } from "../services/articles"
+import { useState, useCallback } from "react"
+import * as articleService from "../services/articles"
 import useMessage from "./useMessage"
 
 const useArticles = () => {
@@ -8,31 +8,25 @@ const useArticles = () => {
   const [error, setError] = useState(false);
   const { showMessage } = useMessage();
 
-  useEffect(() => {
+  const getAllArticles = useCallback(async () => {
 
-    async function init() {
+    try {
 
-      try {
+      const result = await articleService.getAllArticles();
 
-        const result = await getAllArticles();
-
-        if(result?.message) {
-          setError(true);
-        }
-        else {
-          result.reverse();
-          setArticles(result);
-        }
-        
-      } catch (error) {
+      if(result?.message) {
         setError(true);
-      } finally {
-        setLoading(false);
       }
-
+      else {
+        result.reverse();
+        setArticles(result);
+      }
+      
+    } catch (error) {
+      setError(true);
+    } finally {
+      setLoading(false);
     }
-
-    init();
 
   }, [])
 
@@ -40,7 +34,7 @@ const useArticles = () => {
 
     try {
 
-      const result = await createArticle(data);
+      const result = await articleService.createArticle(data);
 
       if(result?.message) {
         showMessage(result.message, "error");
@@ -59,6 +53,7 @@ const useArticles = () => {
     loading,
     error,
     articles,
+    getAllArticles,
     createOneArticle
   }
 }
