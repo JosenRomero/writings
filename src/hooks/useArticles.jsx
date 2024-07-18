@@ -6,7 +6,7 @@ const useArticles = () => {
   const [articles, setArticles] = useState([]);
   const [article, setArticle] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(false);
+  const [error, setError] = useState(null);
   const { showMessage } = useMessage();
 
   const getAllArticles = useCallback(async () => {
@@ -16,14 +16,14 @@ const useArticles = () => {
       const result = await articleService.getAllArticles();
 
       if (result?.message) {
-        setError(true);
+        setError(result.message);
       } else {
         result.reverse();
         setArticles(result);
       }
       
     } catch (error) {
-      setError(true);
+      setError("Something went wrong");
     } finally {
       setLoading(false);
     }
@@ -36,13 +36,13 @@ const useArticles = () => {
      const res = await articleService.getOneArticle(articleId);
 
      if (res?.message) {
-      setError(true);
+      setError(res.message);
      } else {
       setArticle(res);
      }
 
     } catch (error) {
-      setError(true);
+      setError("Something went wrong");
     } finally {
       setLoading(false);
     }

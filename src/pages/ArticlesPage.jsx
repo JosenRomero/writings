@@ -2,6 +2,7 @@ import { useEffect } from "react"
 import useArticles from "../hooks/useArticles"
 import Articles from "../components/Articles"
 import ArticleForm from "../components/ArticleForm"
+import Reload from "../components/Reload"
 
 const ArticlesPage = () => {
   const { loading, error, articles, getAllArticles, createOneArticle } = useArticles()
@@ -14,21 +15,14 @@ const ArticlesPage = () => {
 
   if (loading) return <div>Loading...</div>
 
+  if (error) return <Reload message={error} />
+
   const handleArticle = (data) => {
     createOneArticle(data)
   }
 
   return (
     <div className='text-zinc-800'>
-
-      {error && (
-        <div
-          className='p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50'
-          role='alert'
-        >
-          Something went wrong
-        </div>
-      )}
 
       <h1 className="text-center font-bold text-2xl">Articles</h1>
 

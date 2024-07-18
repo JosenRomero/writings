@@ -1,6 +1,7 @@
 import { useEffect } from "react"
 import { useParams } from "react-router-dom"
 import useArticles from "../hooks/useArticles"
+import Reload from "../components/Reload"
 
 const ArticlePage = () => {
   const { article, loading, error, getOneArticle } = useArticles();
@@ -14,7 +15,7 @@ const ArticlePage = () => {
 
   if (loading) return <div>Loading...</div>
 
-  if (error) return <div>Error</div>
+  if (error) return <Reload message={error} />
 
   return (
     <div className="text-zinc-800">
