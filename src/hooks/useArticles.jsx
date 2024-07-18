@@ -4,6 +4,7 @@ import useMessage from "./useMessage"
 
 const useArticles = () => {
   const [articles, setArticles] = useState([]);
+  const [article, setArticle] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
   const { showMessage } = useMessage();
@@ -14,14 +15,32 @@ const useArticles = () => {
 
       const result = await articleService.getAllArticles();
 
-      if(result?.message) {
+      if (result?.message) {
         setError(true);
-      }
-      else {
+      } else {
         result.reverse();
         setArticles(result);
       }
       
+    } catch (error) {
+      setError(true);
+    } finally {
+      setLoading(false);
+    }
+
+  }, [])
+
+  const getOneArticle = useCallback(async (articleId) => {
+
+    try {
+     const res = await articleService.getOneArticle(articleId);
+
+     if (res?.message) {
+      setError(true);
+     } else {
+      setArticle(res);
+     }
+
     } catch (error) {
       setError(true);
     } finally {
@@ -53,7 +72,9 @@ const useArticles = () => {
     loading,
     error,
     articles,
+    article,
     getAllArticles,
+    getOneArticle,
     createOneArticle
   }
 }

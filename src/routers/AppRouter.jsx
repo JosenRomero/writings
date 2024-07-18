@@ -3,6 +3,7 @@ import Layout from "../components/Layout"
 import ProtectedRoute from "../routers/ProtectedRoute"
 import HomePage from "../pages/HomePage"
 import ArticlesPage from "../pages/ArticlesPage"
+import ArticlePage from "../pages/ArticlePage"
 import ProfilePage from "../pages/ProfilePage"
 import RegisterPage from "../pages/RegisterPage"
 import LoginPage from "../pages/LoginPage"
@@ -18,6 +19,7 @@ const AppRouter = () => {
 
             <Route element={<ProtectedRoute />}>
               <Route path="articles" element={<ArticlesPage />} />
+              <Route path="articles/:articleId" element={<ArticlePage />} />
               <Route path="profile" element={<ProfilePage />} />
             </Route>
 
